@@ -84,7 +84,6 @@
 			this.gonePatientList = undefined;
 			this.currentTab = 0;
 			this.selectedPatient = undefined;
-			this.patientInfoLoaded = false;
 		}
 
 		_createClass(State, [{
@@ -104,9 +103,39 @@
 					_this.presentPatientList = values[0];
 					_this.gonePatientList = values[1];
 					//presentPatientList and gonePatientList are arrays of objects now
-					console.log(_this);
-					//Update state
+					/* Patient record format:
+	    	"historyNumber": 230,
+	    	"firstName": "jtrescgb",
+	    	"lastName": "mgvnyjve",
+	    	"patrName": "jfzirkwh",
+	    	"birthDate": "1952-02-11",
+	    	"diagnosis": "rpzcolmd",
+	    	"bedNumber": 119
+	    */
+					var info = appState.getPatientInfo("presentPatientList", 8);
+					_reactDom2.default.render(_react2.default.createElement(_PatientInfo2.default, { name: info.name, age: info.age, diagnosis: info.diagnosis }), document.getElementById('app-container'));
 				});
+			}
+		}, {
+			key: 'getPatientInfo',
+			value: function getPatientInfo(list, number) {
+				//list must be a strng with one of following values: "presentPatientList", "gonePatientList"
+				if (list != "presentPatientList" || list != "gonePatientList") {
+					console.log("Error in getPatientInfo method: incorrect 'list' argument value");
+				}
+				if (number < 0 || number >= this[list].length) {
+					console.log("Error in getPatientInfo method: incorrect 'number' argument value");
+				}
+				var record = this[list][number];
+				var name = record.lastName + " " + record.firstName + " " + record.patrName;
+				var age = new Date().getYear() - new Date(record.birthDate).getYear();
+				age = Math.ceil(age);
+				var diagnosis = record.diagnosis;
+				return {
+					name: name,
+					age: age,
+					diagnosis: diagnosis
+				};
 			}
 		}]);
 
@@ -115,8 +144,6 @@
 
 	var appState = new State();
 	appState.updatePatientLists();
-
-	var handle = _reactDom2.default.render(_react2.default.createElement(_PatientInfo2.default, null), document.getElementById('app-container'));
 
 /***/ },
 /* 1 */
@@ -21489,10 +21516,10 @@
 /* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+					value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -21510,26 +21537,67 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var PatientInfo = function (_React$Component) {
-	    _inherits(PatientInfo, _React$Component);
+					_inherits(PatientInfo, _React$Component);
 
-	    function PatientInfo() {
-	        _classCallCheck(this, PatientInfo);
+					function PatientInfo() {
+									_classCallCheck(this, PatientInfo);
 
-	        return _possibleConstructorReturn(this, (PatientInfo.__proto__ || Object.getPrototypeOf(PatientInfo)).apply(this, arguments));
-	    }
+									return _possibleConstructorReturn(this, (PatientInfo.__proto__ || Object.getPrototypeOf(PatientInfo)).apply(this, arguments));
+					}
 
-	    _createClass(PatientInfo, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                'Hello!'
-	            );
-	        }
-	    }]);
+					_createClass(PatientInfo, [{
+									key: "render",
+									value: function render() {
+													return _react2.default.createElement(
+																	"div",
+																	{ className: "patient-info" },
+																	_react2.default.createElement(
+																					"div",
+																					{ className: "name" },
+																					_react2.default.createElement(
+																									"div",
+																									{ className: "info-label" },
+																									"\u0424\u0418\u041E"
+																					),
+																					_react2.default.createElement(
+																									"div",
+																									{ className: "info-data" },
+																									this.props.name
+																					)
+																	),
+																	_react2.default.createElement(
+																					"div",
+																					{ className: "name" },
+																					_react2.default.createElement(
+																									"div",
+																									{ className: "info-label" },
+																									"\u0412\u043E\u0437\u0440\u0430\u0441\u0442"
+																					),
+																					_react2.default.createElement(
+																									"div",
+																									{ className: "info-data" },
+																									this.props.age
+																					)
+																	),
+																	_react2.default.createElement(
+																					"div",
+																					{ className: "name" },
+																					_react2.default.createElement(
+																									"div",
+																									{ className: "info-label" },
+																									"\u0414\u0438\u0430\u0433\u043D\u043E\u0437"
+																					),
+																					_react2.default.createElement(
+																									"div",
+																									{ className: "info-data" },
+																									this.props.diagnosis
+																					)
+																	)
+													);
+									}
+					}]);
 
-	    return PatientInfo;
+					return PatientInfo;
 	}(_react2.default.Component);
 
 	exports.default = PatientInfo;
