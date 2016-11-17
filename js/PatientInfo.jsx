@@ -3,6 +3,22 @@ import React from 'react';
 
 class PatientInfo extends React.Component {
     render () {
+    	if (this.props.empty) {
+    		return (
+    			 <div className="col-xs-6 left-panel">
+				   <div className="com-xs-12 col-sm-12 col-md-6 col-lg-6">
+					 <div className="row patient-info">
+						<div className="panel panel-default">
+							<div className="panel-heading">Информация о пациенте</div>
+							<div className="panel-body">
+								Выберите пациента из списка
+							</div>
+						</div>
+					</div>
+				  </div>
+				</div>
+    		);
+    	}
     	return (
     	 <div className="col-xs-6 left-panel">
     	   <div className="com-xs-12 col-sm-12 col-md-6 col-lg-6">
