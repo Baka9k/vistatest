@@ -48,14 +48,6 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(34);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
 	var _jquery = __webpack_require__(172);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
@@ -68,6 +60,14 @@
 
 	var _bootstrap2 = _interopRequireDefault(_bootstrap);
 
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(34);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
 	var _PatientInfo = __webpack_require__(197);
 
 	var _PatientInfo2 = _interopRequireDefault(_PatientInfo);
@@ -78,62 +78,11 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var State = function () {
-		function State() {
-			_classCallCheck(this, State);
-
-			this.presentPatientList = undefined;
-			this.gonePatientList = undefined;
-			this.currentTab = "presentPatientList";
-			this.selectedPatient = undefined;
-		}
-
-		_createClass(State, [{
-			key: 'updatePatientLists',
-			value: function updatePatientLists() {
-				var getPresentPatientList = _jquery2.default.ajax({
-					type: "GET",
-					url: "ajax/presentList.json"
-				});
-				var getGonePatientList = _jquery2.default.ajax({
-					type: "GET",
-					url: "ajax/quittingList.json"
-				});
-				return Promise.all([getPresentPatientList, getGonePatientList]);
-			}
-		}, {
-			key: 'getPatientInfo',
-			value: function getPatientInfo(list, number) {
-				//list must be a strng with one of following values: "presentPatientList", "gonePatientList"
-				if (list != "presentPatientList" && list != "gonePatientList") {
-					console.log("Error in getPatientInfo method: incorrect 'list' argument value: " + list);
-					return;
-				}
-				if (number < 0 || number >= this[list].length) {
-					console.log("Error in getPatientInfo method: incorrect 'number' argument value: " + number);
-					return;
-				}
-				var record = this[list][number];
-				var name = record.lastName + " " + record.firstName + " " + record.patrName;
-				var age = new Date().getYear() - new Date(record.birthDate).getYear();
-				age = Math.ceil(age);
-				var diagnosis = record.diagnosis;
-				return {
-					name: name,
-					age: age,
-					diagnosis: diagnosis
-				};
-			}
-		}]);
-
-		return State;
-	}();
 
 	var PatientApp = function (_React$Component) {
 		_inherits(PatientApp, _React$Component);
@@ -141,7 +90,7 @@
 		function PatientApp(props) {
 			_classCallCheck(this, PatientApp);
 
-			var _this = _possibleConstructorReturn(this, (PatientApp.__proto__ || Object.getPrototypeOf(PatientApp)).call(this));
+			var _this = _possibleConstructorReturn(this, (PatientApp.__proto__ || Object.getPrototypeOf(PatientApp)).call(this, props));
 
 			_this.state = {
 				presentPatientList: undefined,
@@ -153,6 +102,44 @@
 		}
 
 		_createClass(PatientApp, [{
+			key: 'updatePatientLists',
+			value: function updatePatientLists() {
+				var getPresentPatientList = _jquery2.default.ajax({
+					type: "GET",
+					url: "ajax/presentList.json"
+				});
+				var getGonePatientList = _jquery2.default.ajax({
+					type: "GET",
+					url: "ajax/quittingList.json"
+				});
+				return Promise.all([getPresentPatientList, getGonePatientList]).then(function (values) {
+					patientApp.setState({ presentPatientList: values[0], gonePatientList: values[1] });
+				});
+			}
+		}, {
+			key: 'getPatientInfo',
+			value: function getPatientInfo(list, number) {
+				//list must be a strng with one of following values: "presentPatientList", "gonePatientList"
+				if (list != "presentPatientList" && list != "gonePatientList") {
+					console.log("Error in getPatientInfo method: incorrect 'list' argument value: " + list);
+					return;
+				}
+				if (number < 0 || number >= this.state[list].length) {
+					console.log("Error in getPatientInfo method: incorrect 'number' argument value: " + number);
+					return;
+				}
+				var record = this.state[list][number];
+				var name = record.lastName + " " + record.firstName + " " + record.patrName;
+				var age = new Date().getYear() - new Date(record.birthDate).getYear();
+				age = Math.ceil(age);
+				var diagnosis = record.diagnosis;
+				return {
+					name: name,
+					age: age,
+					diagnosis: diagnosis
+				};
+			}
+		}, {
 			key: 'handlePatientClick',
 			value: function handlePatientClick(number) {
 				this.setState({ selectedPatient: number });
@@ -169,15 +156,15 @@
 				var patientInfoEmpty = false,
 				    info = {};
 
-				if (!this.state.selectedPatient) {
+				if (typeof this.state.selectedPatient !== 'number') {
 					patientInfoEmpty = true;
 				} else {
-					info = appState.getPatientInfo(this.state.currentTab, this.state.selectedPatient);
+					info = this.getPatientInfo(this.state.currentTab, this.state.selectedPatient);
 				}
 
 				return _react2.default.createElement(
 					'div',
-					null,
+					{ className: 'container-flud app' },
 					_react2.default.createElement(_PatientInfo2.default, {
 						empty: patientInfoEmpty,
 						name: info.name,
@@ -199,15 +186,9 @@
 		return PatientApp;
 	}(_react2.default.Component);
 
-	var appState = new State();
-
 	var patientApp = _reactDom2.default.render(_react2.default.createElement(PatientApp, null), document.getElementById('app-container'));
 
-	appState.updatePatientLists().then(function (values) {
-		appState.presentPatientList = values[0];
-		appState.gonePatientList = values[1];
-		patientApp.setState(appState);
-	});
+	patientApp.updatePatientLists();
 
 /***/ },
 /* 1 */
@@ -34712,21 +34693,21 @@
 						{ className: "col-xs-6 left-panel" },
 						_react2.default.createElement(
 							"div",
-							{ className: "com-xs-12 col-sm-12 col-md-6 col-lg-6" },
+							{ className: "row patient-info" },
 							_react2.default.createElement(
 								"div",
-								{ className: "row patient-info" },
+								{ className: "panel panel-default" },
 								_react2.default.createElement(
 									"div",
-									{ className: "panel panel-default" },
+									{ className: "panel-heading" },
+									"\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F \u043E \u043F\u0430\u0446\u0438\u0435\u043D\u0442\u0435"
+								),
+								_react2.default.createElement(
+									"div",
+									{ className: "panel-body" },
 									_react2.default.createElement(
 										"div",
-										{ className: "panel-heading" },
-										"\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F \u043E \u043F\u0430\u0446\u0438\u0435\u043D\u0442\u0435"
-									),
-									_react2.default.createElement(
-										"div",
-										{ className: "panel-body" },
+										{ className: "com-xs-12 col-sm-12 col-md-6 col-lg-6" },
 										"\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u0430\u0446\u0438\u0435\u043D\u0442\u0430 \u0438\u0437 \u0441\u043F\u0438\u0441\u043A\u0430"
 									)
 								)

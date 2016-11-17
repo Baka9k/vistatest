@@ -1,13 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-
 import $ from "jquery";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
-
 import Bootstrap from 'bootstrap';
 
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 import PatientInfo from 'PatientInfo';
 import RightPanel from 'RightPanel';
@@ -15,13 +13,16 @@ import RightPanel from 'RightPanel';
 
 
 
-class State {
-
-	constructor () {
-		this.presentPatientList = undefined;
-		this.gonePatientList = undefined;
-		this.currentTab = "presentPatientList";
-		this.selectedPatient = undefined;
+class PatientApp extends React.Component {
+	
+	constructor (props) {
+		super(props);
+		this.state = {
+	  		presentPatientList: undefined,
+		  	gonePatientList: undefined,
+		  	currentTab: "presentPatientList",
+	  		selectedPatient: undefined
+		}
 	}
 	
 	updatePatientLists () {
@@ -33,7 +34,9 @@ class State {
 			type: "GET",
 			url: "ajax/quittingList.json"
 		});
-		return Promise.all([getPresentPatientList, getGonePatientList]);
+		return Promise.all([getPresentPatientList, getGonePatientList]).then((values) => {
+			patientApp.setState({presentPatientList: values[0], gonePatientList: values[1]});
+		});
 	}
 	
 	getPatientInfo (list, number) {
@@ -42,11 +45,11 @@ class State {
 			console.log("Error in getPatientInfo method: incorrect 'list' argument value: " + list);
 			return;
 		}
-		if ( (number < 0) || (number >= this[list].length) ) {
+		if ( (number < 0) || (number >= this.state[list].length) ) {
 			console.log("Error in getPatientInfo method: incorrect 'number' argument value: " + number);
 			return;
 		}
-		var record = this[list][number];
+		var record = this.state[list][number];
 		var name = record.lastName + " " + record.firstName + " " + record.patrName;
 		var age = new Date().getYear() - new Date(record.birthDate).getYear();
 		age = Math.ceil(age);
@@ -57,23 +60,6 @@ class State {
 			diagnosis: diagnosis
 		};
  	}
- 	
-	
-}
-
-
-
-class PatientApp extends React.Component {
-	
-	constructor (props) {
-		super();
-		this.state = {
-			presentPatientList: undefined,
-			gonePatientList: undefined,
-			currentTab: "presentPatientList",
-			selectedPatient: undefined
-		}
-	}
 	
 	handlePatientClick (number) {
 		this.setState({selectedPatient: number});
@@ -87,14 +73,14 @@ class PatientApp extends React.Component {
 		
 		var patientInfoEmpty = false, info = {};
 		
-		if (!this.state.selectedPatient) {
+		if (typeof this.state.selectedPatient !== 'number') {
 			patientInfoEmpty = true;
 		} else {
-			info = appState.getPatientInfo(this.state.currentTab, this.state.selectedPatient);
+			info = this.getPatientInfo(this.state.currentTab, this.state.selectedPatient);
 		}
 		
 		return (
-			<div>
+			<div className="container-flud app">
 				<PatientInfo 
 					empty={patientInfoEmpty} 
 					name={info.name} 
@@ -106,8 +92,8 @@ class PatientApp extends React.Component {
 					presentPatientList={this.state.presentPatientList} 
 					gonePatientList={this.state.gonePatientList} 
 					selectedPatient={this.state.selectedPatient} 
-					onPatientClick={this.handlePatientClick.bind(this)} 
-					onTabClick={this.handleTabClick.bind(this)} 
+					onPatientClick={this.handlePatientClick.bind(this)}
+					onTabClick={this.handleTabClick.bind(this)}
 				/>
 			</div>
 		);
@@ -115,18 +101,10 @@ class PatientApp extends React.Component {
 	}
 	
 }
- 
-let appState = new State();
 
 let patientApp = ReactDOM.render(<PatientApp/>, document.getElementById('app-container'));
- 
-appState.updatePatientLists().then((values) => {
-	appState.presentPatientList = values[0];
-	appState.gonePatientList = values[1];
-	patientApp.setState(appState);
-});
 
-
+patientApp.updatePatientLists();
 
 
 
