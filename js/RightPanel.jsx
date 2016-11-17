@@ -1,5 +1,6 @@
 import React from 'react';
 import PresentPatientList from 'PresentPatientList';
+import GonePatientList from 'GonePatientList';
 
 
 class RightPanel extends React.Component {
@@ -18,8 +19,8 @@ class RightPanel extends React.Component {
 				<div className="col-xs-6 right-panel">
 					<div className="panel panel-default">
 						<div className="panel-heading">
-							<div className="tab tab-active">ПРИСУТСТВУЮТ {presentNumber}</div>
-							<div className="tab">ВЫБЫВШИЕ {goneNumber}</div>
+							<div className="tab tab-active">ПРИСУТСТВУЮТ ({presentNumber})</div>
+							<div className="tab" onClick={() => this.props.onTabClick("gonePatientList")}>ВЫБЫВШИЕ ({goneNumber})</div>
 						</div>
 						<div className="panel-body">
 							
@@ -29,13 +30,13 @@ class RightPanel extends React.Component {
 					</div>
 				</div>
 			);
-		} else if (this.state.currentTab == "gonePatientList") {
+		} else if (this.props.currentTab == "gonePatientList") {
 			return (
 				<div className="col-xs-6 right-panel">
 					<div className="panel panel-default">
 						<div className="panel-heading">
-							<div className="tab">ПРИСУТСТВУЮТ {presentNumber}</div>
-							<div className="tab-active">ВЫБЫВШИЕ {goneNumber}</div>
+							<div className="tab" onClick={() => this.props.onTabClick("presentPatientList")}>ПРИСУТСТВУЮТ ({presentNumber})</div>
+							<div className="tab-active">ВЫБЫВШИЕ ({goneNumber})</div>
 						</div>
 						<div className="panel-body">
 							

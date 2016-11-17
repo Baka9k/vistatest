@@ -1,19 +1,19 @@
 import React from 'react';
 
 
-class PresentPatient extends React.Component {
+class GonePatient extends React.Component {
     render () {
 		return (
 			<tr onClick={() => this.props.onClick(this.props.number)}>
 				<td>{this.props.historyNumber}</td>
 				<td>{this.props.name}</td>
-				<td>{this.props.bedNumber}</td>
+				<td>{this.props.cause}</td>
 			</tr>
 		);
     }
 }
 
-export default PresentPatient;
+export default GonePatient;
 
 
 

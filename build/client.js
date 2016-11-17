@@ -91,7 +91,7 @@
 			this.presentPatientList = undefined;
 			this.gonePatientList = undefined;
 			this.currentTab = "presentPatientList";
-			this.selectedPatient = 5;
+			this.selectedPatient = undefined;
 		}
 
 		_createClass(State, [{
@@ -155,19 +155,26 @@
 		_createClass(PatientApp, [{
 			key: 'handlePatientClick',
 			value: function handlePatientClick(number) {
-				appState.selectedPatient = number;
-				patientApp.setState(appState);
+				this.setState({ selectedPatient: number });
+			}
+		}, {
+			key: 'handleTabClick',
+			value: function handleTabClick(tab) {
+				this.setState({ currentTab: tab });
 			}
 		}, {
 			key: 'render',
 			value: function render() {
+
 				var patientInfoEmpty = false,
 				    info = {};
+
 				if (!this.state.selectedPatient) {
 					patientInfoEmpty = true;
 				} else {
 					info = appState.getPatientInfo(this.state.currentTab, this.state.selectedPatient);
 				}
+
 				return _react2.default.createElement(
 					'div',
 					null,
@@ -182,7 +189,8 @@
 						presentPatientList: this.state.presentPatientList,
 						gonePatientList: this.state.gonePatientList,
 						selectedPatient: this.state.selectedPatient,
-						onPatientClick: this.handlePatientClick
+						onPatientClick: this.handlePatientClick.bind(this),
+						onTabClick: this.handleTabClick.bind(this)
 					})
 				);
 			}
@@ -34833,6 +34841,10 @@
 
 	var _PresentPatientList2 = _interopRequireDefault(_PresentPatientList);
 
+	var _GonePatientList = __webpack_require__(201);
+
+	var _GonePatientList2 = _interopRequireDefault(_GonePatientList);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -34853,6 +34865,8 @@
 		_createClass(RightPanel, [{
 			key: 'render',
 			value: function render() {
+				var _this2 = this;
+
 				if (this.props.presentPatientList) {
 					var presentNumber = this.props.presentPatientList.length;
 					var goneNumber = this.props.gonePatientList.length;
@@ -34875,14 +34889,18 @@
 								_react2.default.createElement(
 									'div',
 									{ className: 'tab tab-active' },
-									'\u041F\u0420\u0418\u0421\u0423\u0422\u0421\u0422\u0412\u0423\u042E\u0422 ',
-									presentNumber
+									'\u041F\u0420\u0418\u0421\u0423\u0422\u0421\u0422\u0412\u0423\u042E\u0422 (',
+									presentNumber,
+									')'
 								),
 								_react2.default.createElement(
 									'div',
-									{ className: 'tab' },
-									'\u0412\u042B\u0411\u042B\u0412\u0428\u0418\u0415 ',
-									goneNumber
+									{ className: 'tab', onClick: function onClick() {
+											return _this2.props.onTabClick("gonePatientList");
+										} },
+									'\u0412\u042B\u0411\u042B\u0412\u0428\u0418\u0415 (',
+									goneNumber,
+									')'
 								)
 							),
 							_react2.default.createElement(
@@ -34892,7 +34910,7 @@
 							)
 						)
 					);
-				} else if (this.state.currentTab == "gonePatientList") {
+				} else if (this.props.currentTab == "gonePatientList") {
 					return _react2.default.createElement(
 						'div',
 						{ className: 'col-xs-6 right-panel' },
@@ -34904,21 +34922,25 @@
 								{ className: 'panel-heading' },
 								_react2.default.createElement(
 									'div',
-									{ className: 'tab' },
-									'\u041F\u0420\u0418\u0421\u0423\u0422\u0421\u0422\u0412\u0423\u042E\u0422 ',
-									presentNumber
+									{ className: 'tab', onClick: function onClick() {
+											return _this2.props.onTabClick("presentPatientList");
+										} },
+									'\u041F\u0420\u0418\u0421\u0423\u0422\u0421\u0422\u0412\u0423\u042E\u0422 (',
+									presentNumber,
+									')'
 								),
 								_react2.default.createElement(
 									'div',
 									{ className: 'tab-active' },
-									'\u0412\u042B\u0411\u042B\u0412\u0428\u0418\u0415 ',
-									goneNumber
+									'\u0412\u042B\u0411\u042B\u0412\u0428\u0418\u0415 (',
+									goneNumber,
+									')'
 								)
 							),
 							_react2.default.createElement(
 								'div',
 								{ className: 'panel-body' },
-								_react2.default.createElement(GonePatientList, { list: this.props.gonePatientList, notloaded: notLoaded, onClick: this.props.onPatientClick })
+								_react2.default.createElement(_GonePatientList2.default, { list: this.props.gonePatientList, notloaded: notLoaded, onClick: this.props.onPatientClick })
 							)
 						)
 					);
@@ -34988,7 +35010,9 @@
 							historyNumber: o.historyNumber,
 							bedNumber: o.bedNumber,
 							name: patientName,
-							onClick: _this2.props.onClick
+							onClick: function onClick() {
+								return _this2.props.onClick(i);
+							}
 						});
 					});
 				}
@@ -35098,6 +35122,174 @@
 	}(_react2.default.Component);
 
 	exports.default = PresentPatient;
+
+/***/ },
+/* 201 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _GonePatient = __webpack_require__(202);
+
+	var _GonePatient2 = _interopRequireDefault(_GonePatient);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var GonePatientList = function (_React$Component) {
+		_inherits(GonePatientList, _React$Component);
+
+		function GonePatientList() {
+			_classCallCheck(this, GonePatientList);
+
+			return _possibleConstructorReturn(this, (GonePatientList.__proto__ || Object.getPrototypeOf(GonePatientList)).apply(this, arguments));
+		}
+
+		_createClass(GonePatientList, [{
+			key: 'render',
+			value: function render() {
+				var _this2 = this;
+
+				if (this.props.notloaded) {
+					return _react2.default.createElement(
+						'div',
+						null,
+						'\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...'
+					);
+				} else {
+					var patientList = this.props.list.map(function (o, i) {
+						var patientName = o.lastName + " " + o.firstName + " " + o.patrName;
+						return _react2.default.createElement(_GonePatient2.default, {
+							key: i,
+							number: i,
+							historyNumber: o.historyNumber,
+							cause: o.cause,
+							name: patientName,
+							onClick: _this2.props.onClick
+						});
+					});
+				}
+				return _react2.default.createElement(
+					'table',
+					{ className: 'table table-striped' },
+					_react2.default.createElement(
+						'thead',
+						null,
+						_react2.default.createElement(
+							'tr',
+							null,
+							_react2.default.createElement(
+								'td',
+								null,
+								'\u2116 \u0418\u0411'
+							),
+							_react2.default.createElement(
+								'td',
+								null,
+								'\u0424\u0418\u041E'
+							),
+							_react2.default.createElement(
+								'td',
+								null,
+								'\u041F\u0420\u0418\u0427\u0418\u041D\u0410 \u0412\u042B\u0411\u042B\u0422\u0418\u042F'
+							)
+						)
+					),
+					_react2.default.createElement(
+						'tbody',
+						null,
+						patientList
+					)
+				);
+			}
+		}]);
+
+		return GonePatientList;
+	}(_react2.default.Component);
+
+	exports.default = GonePatientList;
+
+/***/ },
+/* 202 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var GonePatient = function (_React$Component) {
+		_inherits(GonePatient, _React$Component);
+
+		function GonePatient() {
+			_classCallCheck(this, GonePatient);
+
+			return _possibleConstructorReturn(this, (GonePatient.__proto__ || Object.getPrototypeOf(GonePatient)).apply(this, arguments));
+		}
+
+		_createClass(GonePatient, [{
+			key: 'render',
+			value: function render() {
+				var _this2 = this;
+
+				return _react2.default.createElement(
+					'tr',
+					{ onClick: function onClick() {
+							return _this2.props.onClick(_this2.props.number);
+						} },
+					_react2.default.createElement(
+						'td',
+						null,
+						this.props.historyNumber
+					),
+					_react2.default.createElement(
+						'td',
+						null,
+						this.props.name
+					),
+					_react2.default.createElement(
+						'td',
+						null,
+						this.props.cause
+					)
+				);
+			}
+		}]);
+
+		return GonePatient;
+	}(_react2.default.Component);
+
+	exports.default = GonePatient;
 
 /***/ }
 /******/ ]);

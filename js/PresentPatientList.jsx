@@ -20,7 +20,7 @@ class PresentPatientList extends React.Component {
 						historyNumber={o.historyNumber} 
 						bedNumber={o.bedNumber} 
 						name={patientName} 
-						onClick={this.props.onClick} 
+						onClick={() => this.props.onClick(i)} 
 					/>
 				);
 			});

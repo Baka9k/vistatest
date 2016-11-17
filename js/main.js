@@ -21,7 +21,7 @@ class State {
 		this.presentPatientList = undefined;
 		this.gonePatientList = undefined;
 		this.currentTab = "presentPatientList";
-		this.selectedPatient = 5;
+		this.selectedPatient = undefined;
 	}
 	
 	updatePatientLists () {
@@ -76,17 +76,23 @@ class PatientApp extends React.Component {
 	}
 	
 	handlePatientClick (number) {
-		appState.selectedPatient = number;
-		patientApp.setState(appState);
+		this.setState({selectedPatient: number});
+	}
+	
+	handleTabClick (tab) {
+		this.setState({currentTab: tab});
 	}
 	
 	render () {
+		
 		var patientInfoEmpty = false, info = {};
+		
 		if (!this.state.selectedPatient) {
 			patientInfoEmpty = true;
 		} else {
 			info = appState.getPatientInfo(this.state.currentTab, this.state.selectedPatient);
 		}
+		
 		return (
 			<div>
 				<PatientInfo 
@@ -100,16 +106,18 @@ class PatientApp extends React.Component {
 					presentPatientList={this.state.presentPatientList} 
 					gonePatientList={this.state.gonePatientList} 
 					selectedPatient={this.state.selectedPatient} 
-					onPatientClick={this.handlePatientClick} 
+					onPatientClick={this.handlePatientClick.bind(this)} 
+					onTabClick={this.handleTabClick.bind(this)} 
 				/>
 			</div>
 		);
+		
 	}
 	
 }
  
 let appState = new State();
- 
+
 let patientApp = ReactDOM.render(<PatientApp/>, document.getElementById('app-container'));
  
 appState.updatePatientLists().then((values) => {
