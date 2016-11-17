@@ -64,6 +64,7 @@ class State {
 
 
 class PatientApp extends React.Component {
+	
 	constructor (props) {
 		super();
 		this.state = {
@@ -73,6 +74,12 @@ class PatientApp extends React.Component {
 			selectedPatient: undefined
 		}
 	}
+	
+	handlePatientClick (number) {
+		appState.selectedPatient = number;
+		patientApp.setState(appState);
+	}
+	
 	render () {
 		var patientInfoEmpty = false, info = {};
 		if (!this.state.selectedPatient) {
@@ -93,10 +100,12 @@ class PatientApp extends React.Component {
 					presentPatientList={this.state.presentPatientList} 
 					gonePatientList={this.state.gonePatientList} 
 					selectedPatient={this.state.selectedPatient} 
+					onPatientClick={this.handlePatientClick} 
 				/>
 			</div>
 		);
 	}
+	
 }
  
 let appState = new State();
@@ -106,7 +115,7 @@ let patientApp = ReactDOM.render(<PatientApp/>, document.getElementById('app-con
 appState.updatePatientLists().then((values) => {
 	appState.presentPatientList = values[0];
 	appState.gonePatientList = values[1];
-	patientApp.setState( appState );
+	patientApp.setState(appState);
 });
 
 

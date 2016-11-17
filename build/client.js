@@ -153,6 +153,12 @@
 		}
 
 		_createClass(PatientApp, [{
+			key: 'handlePatientClick',
+			value: function handlePatientClick(number) {
+				appState.selectedPatient = number;
+				patientApp.setState(appState);
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				var patientInfoEmpty = false,
@@ -175,7 +181,8 @@
 						currentTab: this.state.currentTab,
 						presentPatientList: this.state.presentPatientList,
 						gonePatientList: this.state.gonePatientList,
-						selectedPatient: this.state.selectedPatient
+						selectedPatient: this.state.selectedPatient,
+						onPatientClick: this.handlePatientClick
 					})
 				);
 			}
@@ -34724,21 +34731,21 @@
 					{ className: "col-xs-6 left-panel" },
 					_react2.default.createElement(
 						"div",
-						{ className: "com-xs-12 col-sm-12 col-md-6 col-lg-6" },
+						{ className: "row patient-info" },
 						_react2.default.createElement(
 							"div",
-							{ className: "row patient-info" },
+							{ className: "panel panel-default" },
 							_react2.default.createElement(
 								"div",
-								{ className: "panel panel-default" },
+								{ className: "panel-heading" },
+								"\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F \u043E \u043F\u0430\u0446\u0438\u0435\u043D\u0442\u0435"
+							),
+							_react2.default.createElement(
+								"div",
+								{ className: "panel-body" },
 								_react2.default.createElement(
 									"div",
-									{ className: "panel-heading" },
-									"\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F \u043E \u043F\u0430\u0446\u0438\u0435\u043D\u0442\u0435"
-								),
-								_react2.default.createElement(
-									"div",
-									{ className: "panel-body" },
+									{ className: "com-xs-12 col-sm-12 col-md-6 col-lg-6" },
 									_react2.default.createElement(
 										"div",
 										{ className: "col-xs-12 info" },
@@ -34881,7 +34888,7 @@
 							_react2.default.createElement(
 								'div',
 								{ className: 'panel-body' },
-								_react2.default.createElement(_PresentPatientList2.default, { list: this.props.presentPatientList, notloaded: notLoaded })
+								_react2.default.createElement(_PresentPatientList2.default, { list: this.props.presentPatientList, notloaded: notLoaded, onClick: this.props.onPatientClick })
 							)
 						)
 					);
@@ -34911,7 +34918,7 @@
 							_react2.default.createElement(
 								'div',
 								{ className: 'panel-body' },
-								_react2.default.createElement(GonePatientList, { list: this.props.gonePatientList, notloaded: notLoaded })
+								_react2.default.createElement(GonePatientList, { list: this.props.gonePatientList, notloaded: notLoaded, onClick: this.props.onPatientClick })
 							)
 						)
 					);
@@ -34964,19 +34971,58 @@
 		_createClass(PresentPatientList, [{
 			key: 'render',
 			value: function render() {
+				var _this2 = this;
+
 				if (this.props.notloaded) {
-					var patientList = "Loading...";
+					return _react2.default.createElement(
+						'div',
+						null,
+						'\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...'
+					);
 				} else {
-					console.log(this.props.list.map);
 					var patientList = this.props.list.map(function (o, i) {
 						var patientName = o.lastName + " " + o.firstName + " " + o.patrName;
-						return _react2.default.createElement(_PresentPatient2.default, { key: i, historyNumber: o.historyNumber, bedNumber: o.bedNumber, name: patientName });
+						return _react2.default.createElement(_PresentPatient2.default, {
+							key: i,
+							number: i,
+							historyNumber: o.historyNumber,
+							bedNumber: o.bedNumber,
+							name: patientName,
+							onClick: _this2.props.onClick
+						});
 					});
 				}
 				return _react2.default.createElement(
-					'div',
-					null,
-					patientList
+					'table',
+					{ className: 'table table-striped' },
+					_react2.default.createElement(
+						'thead',
+						null,
+						_react2.default.createElement(
+							'tr',
+							null,
+							_react2.default.createElement(
+								'td',
+								null,
+								'\u2116 \u0418\u0411'
+							),
+							_react2.default.createElement(
+								'td',
+								null,
+								'\u0424\u0418\u041E'
+							),
+							_react2.default.createElement(
+								'td',
+								null,
+								'\u041F\u0410\u041B\u0410\u0422\u0410'
+							)
+						)
+					),
+					_react2.default.createElement(
+						'tbody',
+						null,
+						patientList
+					)
 				);
 			}
 		}]);
@@ -35022,12 +35068,28 @@
 		_createClass(PresentPatient, [{
 			key: 'render',
 			value: function render() {
+				var _this2 = this;
+
 				return _react2.default.createElement(
-					'div',
-					null,
-					this.props.historyNumber,
-					this.props.name,
-					this.props.bedNumber
+					'tr',
+					{ onClick: function onClick() {
+							return _this2.props.onClick(_this2.props.number);
+						} },
+					_react2.default.createElement(
+						'td',
+						null,
+						this.props.historyNumber
+					),
+					_react2.default.createElement(
+						'td',
+						null,
+						this.props.name
+					),
+					_react2.default.createElement(
+						'td',
+						null,
+						this.props.bedNumber
+					)
 				);
 			}
 		}]);

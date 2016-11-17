@@ -4,11 +4,11 @@ import React from 'react';
 class PresentPatient extends React.Component {
     render () {
 		return (
-			<div>
-				{this.props.historyNumber}
-				{this.props.name}
-				{this.props.bedNumber}
-			</div>
+			<tr onClick={() => this.props.onClick(this.props.number)}>
+				<td>{this.props.historyNumber}</td>
+				<td>{this.props.name}</td>
+				<td>{this.props.bedNumber}</td>
+			</tr>
 		);
     }
 }
