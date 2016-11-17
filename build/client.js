@@ -72,6 +72,10 @@
 
 	var _PatientInfo2 = _interopRequireDefault(_PatientInfo);
 
+	var _RightPanel = __webpack_require__(198);
+
+	var _RightPanel2 = _interopRequireDefault(_RightPanel);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -157,9 +161,23 @@
 					patientInfoEmpty = true;
 				} else {
 					info = appState.getPatientInfo(this.state.currentTab, this.state.selectedPatient);
-					console.log(this);
 				}
-				return _react2.default.createElement(_PatientInfo2.default, { empty: patientInfoEmpty, name: info.name, age: info.age, diagnosis: info.diagnosis });
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(_PatientInfo2.default, {
+						empty: patientInfoEmpty,
+						name: info.name,
+						age: info.age,
+						diagnosis: info.diagnosis
+					}),
+					_react2.default.createElement(_RightPanel2.default, {
+						currentTab: this.state.currentTab,
+						presentPatientList: this.state.presentPatientList,
+						gonePatientList: this.state.gonePatientList,
+						selectedPatient: this.state.selectedPatient
+					})
+				);
 			}
 		}]);
 
@@ -34787,6 +34805,237 @@
 	}(_react2.default.Component);
 
 	exports.default = PatientInfo;
+
+/***/ },
+/* 198 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _PresentPatientList = __webpack_require__(199);
+
+	var _PresentPatientList2 = _interopRequireDefault(_PresentPatientList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var RightPanel = function (_React$Component) {
+		_inherits(RightPanel, _React$Component);
+
+		function RightPanel() {
+			_classCallCheck(this, RightPanel);
+
+			return _possibleConstructorReturn(this, (RightPanel.__proto__ || Object.getPrototypeOf(RightPanel)).apply(this, arguments));
+		}
+
+		_createClass(RightPanel, [{
+			key: 'render',
+			value: function render() {
+				if (this.props.presentPatientList) {
+					var presentNumber = this.props.presentPatientList.length;
+					var goneNumber = this.props.gonePatientList.length;
+					var notLoaded = false;
+				} else {
+					var presentNumber = "Загрузка...";
+					var goneNumber = "Загрузка...";
+					var notLoaded = true;
+				}
+				if (this.props.currentTab == "presentPatientList") {
+					return _react2.default.createElement(
+						'div',
+						{ className: 'col-xs-6 right-panel' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'panel panel-default' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'panel-heading' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'tab tab-active' },
+									'\u041F\u0420\u0418\u0421\u0423\u0422\u0421\u0422\u0412\u0423\u042E\u0422 ',
+									presentNumber
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'tab' },
+									'\u0412\u042B\u0411\u042B\u0412\u0428\u0418\u0415 ',
+									goneNumber
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'panel-body' },
+								_react2.default.createElement(_PresentPatientList2.default, { list: this.props.presentPatientList, notloaded: notLoaded })
+							)
+						)
+					);
+				} else if (this.state.currentTab == "gonePatientList") {
+					return _react2.default.createElement(
+						'div',
+						{ className: 'col-xs-6 right-panel' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'panel panel-default' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'panel-heading' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'tab' },
+									'\u041F\u0420\u0418\u0421\u0423\u0422\u0421\u0422\u0412\u0423\u042E\u0422 ',
+									presentNumber
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'tab-active' },
+									'\u0412\u042B\u0411\u042B\u0412\u0428\u0418\u0415 ',
+									goneNumber
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'panel-body' },
+								_react2.default.createElement(GonePatientList, { list: this.props.gonePatientList, notloaded: notLoaded })
+							)
+						)
+					);
+				}
+			}
+		}]);
+
+		return RightPanel;
+	}(_react2.default.Component);
+
+	exports.default = RightPanel;
+
+/***/ },
+/* 199 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _PresentPatient = __webpack_require__(200);
+
+	var _PresentPatient2 = _interopRequireDefault(_PresentPatient);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var PresentPatientList = function (_React$Component) {
+		_inherits(PresentPatientList, _React$Component);
+
+		function PresentPatientList() {
+			_classCallCheck(this, PresentPatientList);
+
+			return _possibleConstructorReturn(this, (PresentPatientList.__proto__ || Object.getPrototypeOf(PresentPatientList)).apply(this, arguments));
+		}
+
+		_createClass(PresentPatientList, [{
+			key: 'render',
+			value: function render() {
+				if (this.props.notloaded) {
+					var patientList = "Loading...";
+				} else {
+					console.log(this.props.list.map);
+					var patientList = this.props.list.map(function (o, i) {
+						var patientName = o.lastName + " " + o.firstName + " " + o.patrName;
+						return _react2.default.createElement(_PresentPatient2.default, { key: i, historyNumber: o.historyNumber, bedNumber: o.bedNumber, name: patientName });
+					});
+				}
+				return _react2.default.createElement(
+					'div',
+					null,
+					patientList
+				);
+			}
+		}]);
+
+		return PresentPatientList;
+	}(_react2.default.Component);
+
+	exports.default = PresentPatientList;
+
+/***/ },
+/* 200 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var PresentPatient = function (_React$Component) {
+		_inherits(PresentPatient, _React$Component);
+
+		function PresentPatient() {
+			_classCallCheck(this, PresentPatient);
+
+			return _possibleConstructorReturn(this, (PresentPatient.__proto__ || Object.getPrototypeOf(PresentPatient)).apply(this, arguments));
+		}
+
+		_createClass(PresentPatient, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					this.props.historyNumber,
+					this.props.name,
+					this.props.bedNumber
+				);
+			}
+		}]);
+
+		return PresentPatient;
+	}(_react2.default.Component);
+
+	exports.default = PresentPatient;
 
 /***/ }
 /******/ ]);

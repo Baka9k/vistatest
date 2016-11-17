@@ -10,6 +10,8 @@ import Bootstrap from 'bootstrap';
 
 
 import PatientInfo from 'PatientInfo';
+import RightPanel from 'RightPanel';
+
 
 
 
@@ -79,7 +81,20 @@ class PatientApp extends React.Component {
 			info = appState.getPatientInfo(this.state.currentTab, this.state.selectedPatient);
 		}
 		return (
-			<PatientInfo empty={patientInfoEmpty} name={info.name} age={info.age} diagnosis={info.diagnosis} />
+			<div>
+				<PatientInfo 
+					empty={patientInfoEmpty} 
+					name={info.name} 
+					age={info.age} 
+					diagnosis={info.diagnosis} 
+				/>
+				<RightPanel
+					currentTab={this.state.currentTab} 
+					presentPatientList={this.state.presentPatientList} 
+					gonePatientList={this.state.gonePatientList} 
+					selectedPatient={this.state.selectedPatient} 
+				/>
+			</div>
 		);
 	}
 }
