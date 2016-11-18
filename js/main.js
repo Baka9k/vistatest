@@ -1,16 +1,17 @@
+import 'babel-polyfill';
+
 import $ from 'jquery';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import Bootstrap from 'bootstrap';
+import 'styles/style.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import PatientInfo from 'PatientInfo';
 import RightPanel from 'RightPanel';
-
-import 'styles/style.scss';
 
 
 
