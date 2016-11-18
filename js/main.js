@@ -68,7 +68,7 @@ class PatientApp extends React.Component {
 	}
 	
 	handleTabClick (tab) {
-		this.setState({currentTab: tab});
+		this.setState({currentTab: tab, selectedPatient: undefined});
 	}
 	
 	render () {

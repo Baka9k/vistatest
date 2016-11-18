@@ -13,6 +13,8 @@ class PresentPatientList extends React.Component {
     	} else {
 			var patientList = this.props.list.map( (o, i) => {
 				var patientName = o.lastName + " " + o.firstName + " " + o.patrName;
+				var selected = false;
+				if (i == this.props.selectedPatient) selected = true;
 				return (
 					<PresentPatient 
 						key={i} 
@@ -20,6 +22,7 @@ class PresentPatientList extends React.Component {
 						historyNumber={o.historyNumber} 
 						bedNumber={o.bedNumber} 
 						name={patientName} 
+						selected = {selected} 
 						onClick={() => this.props.onClick(i)} 
 					/>
 				);

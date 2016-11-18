@@ -86,6 +86,7 @@ html, body {
 	height: 32px;
 	margin: 0px;
 	padding: 0px;
+	cursor: pointer;
 }
 .tab-active {
 	color: #00a3cc;
@@ -93,6 +94,9 @@ html, body {
 }
 thead {
 	color: #a9a9a9;
+}
+tbody {
+	cursor: pointer;
 }
 
 
@@ -106,6 +110,18 @@ thead {
 .info-data {
 	border-bottom: solid 1px #ddd;
 }
+
+
+.selected {
+	background-color: #dadada !important;
+	border-left: solid 3px #00a3cc;
+}
+tbody tr:hover {
+	background-color: #eee !important;
+}
+
+
+
 
 
 

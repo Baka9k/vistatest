@@ -24,7 +24,7 @@ class RightPanel extends React.Component {
 						</div>
 						<div className="panel-body">
 							
-							<PresentPatientList list={this.props.presentPatientList} notloaded={notLoaded} onClick={this.props.onPatientClick} />
+							<PresentPatientList list={this.props.presentPatientList} notloaded={notLoaded} onClick={this.props.onPatientClick} selectedPatient={this.props.selectedPatient} />
 							
 						</div>
 					</div>
@@ -40,7 +40,7 @@ class RightPanel extends React.Component {
 						</div>
 						<div className="panel-body">
 							
-							<GonePatientList list={this.props.gonePatientList} notloaded={notLoaded} onClick={this.props.onPatientClick} />
+							<GonePatientList list={this.props.gonePatientList} notloaded={notLoaded} onClick={this.props.onPatientClick} selectedPatient={this.props.selectedPatient} />
 							
 						</div>
 					</div>
