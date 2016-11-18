@@ -3,8 +3,6 @@ const path = require('path');
 
 const webpack = require('webpack');
 
-
-
 module.exports = {
   entry: './js/main.js',
   output: {
@@ -73,6 +71,16 @@ module.exports = {
     	jQuery: 'jquery',
     	$: 'jquery',
     	jquery: 'jquery'
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress:{
+        warnings: false
+      }
     })
   ]
 };
