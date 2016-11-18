@@ -34916,7 +34916,7 @@
 								),
 								_react2.default.createElement(
 									'div',
-									{ className: 'tab-active' },
+									{ className: 'tab tab-active' },
 									'\u0412\u042B\u0411\u042B\u0412\u0428\u0418\u0415 (',
 									goneNumber,
 									')'
@@ -35311,7 +35311,7 @@
 
 
 	// module
-	exports.push([module.id, "html, body {\n  height: 100%; }\n\n.app-container {\n  padding: 12px;\n  padding-bottom: 0px; }\n\n.table {\n  margin-bottom: 0px; }\n\n.app {\n  padding: 0px;\n  position: relative; }\n\n.panel-default {\n  border-radius: 0px;\n  margin-bottom: 0px; }\n\n.left-panel .panel-default > .panel-heading {\n  background-color: #00a3cc;\n  background-image: none;\n  color: #ffffff;\n  font-weight: 700;\n  border-color: #00a3cc;\n  border-radius: 0px; }\n\n.left-panel .panel-default {\n  border: solid 2px #00a3cc;\n  height: 100%;\n  overflow: hidden; }\n\n.left-panel, .patient-info {\n  height: calc(100vh - 12px); }\n\n.patient-info {\n  padding-bottom: 12px; }\n\n.right-panel .panel-body {\n  padding: 0px; }\n\n.right-panel .panel-default {\n  height: 100%;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  overflow-y: scroll;\n  -ms-overflow-style: none;\n  overflow: -moz-scrollbars-none; }\n\n.right-panel .panel-default::-webkit-scrollbar {\n  width: 0 !important; }\n\n.right-panel {\n  height: calc(100vh - 12px);\n  padding-bottom: 12px; }\n", ""]);
+	exports.push([module.id, "html, body {\n  height: 100%; }\n\n.app-container {\n  padding: 12px;\n  padding-bottom: 0px; }\n\n.table {\n  margin-bottom: 0px; }\n\n.app {\n  padding: 0px;\n  position: relative; }\n\n.panel-default {\n  border-radius: 0px;\n  margin-bottom: 0px; }\n\n.left-panel .panel-default > .panel-heading {\n  background-color: #00a3cc;\n  background-image: none;\n  color: #ffffff;\n  font-weight: 700;\n  border-color: #00a3cc;\n  border-radius: 0px; }\n\n.left-panel .panel-default {\n  border: solid 2px #00a3cc;\n  height: 100%;\n  overflow: hidden; }\n\n.left-panel, .patient-info {\n  height: calc(100vh - 12px); }\n\n.patient-info {\n  padding-bottom: 12px; }\n\n.right-panel .panel-body {\n  padding: 0px; }\n\n.right-panel .panel-default {\n  height: 100%;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  overflow-y: scroll;\n  -ms-overflow-style: none;\n  overflow: -moz-scrollbars-none; }\n\n.right-panel .panel-default::-webkit-scrollbar {\n  width: 0 !important; }\n\n.right-panel {\n  height: calc(100vh - 12px);\n  padding-bottom: 12px; }\n\n.panel-heading {\n  height: 42px; }\n\n.right-panel .panel-default > .panel-heading {\n  background-color: #eee;\n  background-image: none;\n  border-radius: 0px; }\n\n.right-panel .panel-default {\n  border: 0px;\n  filter: progid:DXImageTransform.Microsoft.shadow(direction=120, color=#000000, strength=10);\n  box-shadow: 0 0 5px rgba(30, 30, 30, 0.5); }\n\n.tab {\n  width: 160px;\n  text-align: center;\n  position: relative;\n  float: left;\n  height: 32px;\n  margin: 0px;\n  padding: 0px; }\n\n.tab-active {\n  color: #00a3cc;\n  border-bottom: solid 3px #00a3cc; }\n\nthead {\n  color: #a9a9a9; }\n\n.left-panel .panel-body .col-xs-12 {\n  padding-left: 0px; }\n\n.info {\n  margin-bottom: 16px; }\n\n.info-data {\n  border-bottom: solid 1px #ddd; }\n", ""]);
 
 	// exports
 

@@ -42,9 +42,6 @@ html, body {
 .patient-info {
 	padding-bottom: 12px;
 }
-.left-panel {
-	
-}
 
 
 .right-panel .panel-body {
@@ -65,6 +62,49 @@ html, body {
 .right-panel {
 	height: calc(100vh - 12px);
 	padding-bottom: 12px;
+}
+.panel-heading {
+	height: 42px;
+}
+.right-panel .panel-default > .panel-heading {
+	background-color: #eee;
+	background-image: none;
+	border-radius: 0px;
+}
+.right-panel .panel-default {
+	border: 0px;
+	filter: progid:DXImageTransform.Microsoft.shadow(direction=120, color=#000000, strength=10);
+	box-shadow: 0 0 5px rgba(30,30,30,0.5);
+}
+
+
+.tab {
+	width: 160px;
+	text-align: center;
+	position: relative;
+	float: left;
+	height: 32px;
+	margin: 0px;
+	padding: 0px;
+}
+.tab-active {
+	color: #00a3cc;
+	border-bottom: solid 3px #00a3cc;
+}
+thead {
+	color: #a9a9a9;
+}
+
+
+.left-panel .panel-body .col-xs-12 {
+	padding-left: 0px;
+}
+
+.info {
+	margin-bottom: 16px;
+}
+.info-data {
+	border-bottom: solid 1px #ddd;
 }
 
 

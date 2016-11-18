@@ -36,7 +36,7 @@ class RightPanel extends React.Component {
 					<div className="panel panel-default">
 						<div className="panel-heading">
 							<div className="tab" onClick={() => this.props.onTabClick("presentPatientList")}>ПРИСУТСТВУЮТ ({presentNumber})</div>
-							<div className="tab-active">ВЫБЫВШИЕ ({goneNumber})</div>
+							<div className="tab tab-active">ВЫБЫВШИЕ ({goneNumber})</div>
 						</div>
 						<div className="panel-body">
 							
