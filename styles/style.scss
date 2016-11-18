@@ -1,0 +1,72 @@
+html, body {
+	height: 100%;
+}
+
+
+.app-container {
+	padding: 12px;
+	padding-bottom: 0px;
+}
+
+.table {
+	margin-bottom: 0px;
+}
+
+.app {
+	padding: 0px;
+	position: relative;
+}
+
+.panel-default {
+	border-radius: 0px;
+	margin-bottom: 0px;
+}
+
+
+.left-panel .panel-default > .panel-heading {
+	background-color: #00a3cc;
+	background-image: none;
+	color: #ffffff;
+	font-weight: 700;
+	border-color: #00a3cc;
+	border-radius: 0px;
+}
+.left-panel .panel-default {
+	border: solid 2px #00a3cc;
+	height: 100%;
+	overflow: hidden;
+}
+.left-panel, .patient-info {
+	height: calc(100vh - 12px);
+}
+.patient-info {
+	padding-bottom: 12px;
+}
+.left-panel {
+	
+}
+
+
+.right-panel .panel-body {
+	padding: 0px;
+}
+
+.right-panel .panel-default {
+	height: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	overflow-y: scroll;
+	-ms-overflow-style: none;
+	overflow: -moz-scrollbars-none;
+}
+.right-panel .panel-default::-webkit-scrollbar { width: 0 !important }
+
+.right-panel {
+	height: calc(100vh - 12px);
+	padding-bottom: 12px;
+}
+
+
+
+

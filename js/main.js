@@ -10,6 +10,10 @@ import ReactDOM from 'react-dom';
 import PatientInfo from 'PatientInfo';
 import RightPanel from 'RightPanel';
 
+import 'styles/style.scss';
+
+
+
 
 class PatientApp extends React.Component {
 	
