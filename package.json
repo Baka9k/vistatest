@@ -5,7 +5,9 @@
   "main": "./js/main.js",
   "scripts": {
     "build": "node_modules/.bin/webpack",
-    "dev": "node_modules/.bin/webpack -w"
+    "dev": "node_modules/.bin/webpack -w",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "author": "Mikhail S.",
   "license": "GPL-3.0",
@@ -25,7 +27,8 @@
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.3"
+    "webpack": "^1.13.3",
+    "snyk": "^1.83.0"
   },
   "repository": {
     "type": "git",
@@ -33,5 +36,6 @@
   },
   "bugs": {
     "url": "https://github.com/Baka9k/vistatest/issues"
-  }
+  },
+  "snyk": true
 }
